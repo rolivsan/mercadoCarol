@@ -16,4 +16,8 @@ public class CategoriaService {
     public List<Categoria> findAll() {
         return categoriaUseCase.findAll();
     }
+
+    public Categoria findById(Long id) throws Exception {
+        return categoriaUseCase.findById(id);
+    }
 }

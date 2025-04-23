@@ -2,7 +2,7 @@ package br.com.mercado;
 
 
 import br.com.mercado.domain.model.*;
-import br.com.mercado.domain.repository.CategoriaRepository;
+import br.com.mercado.domain.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,8 +21,12 @@ public class MercadoApplication {
 	}
 
 	@Bean
-	CommandLineRunner initDatabase(@Autowired CategoriaRepository categoriaRepository) {
-		return args -> {/*
+	CommandLineRunner initDatabase(@Autowired CategoriaRepository categoriaRepository,
+								   @Autowired ProdutoRepository produtoRepository,
+								   @Autowired MercadoRepository mercadoRepository,
+								   @Autowired FuncionarioRepository funcionarioRepository,
+								   @Autowired FornecedorRepository fornecedorRepository) {
+		return args -> {
 			Mercado mercado1 = Mercado.builder()
 					.nome("Mercado do João")
 					.endereco("Rua Silva")
@@ -61,16 +65,22 @@ public class MercadoApplication {
 					.build();
 			Fornecedor fornecedor2 = Fornecedor.builder()
 					.nome("Fornecedor 2")
-					.cnpj("12345678901234")
+					.cnpj("12345678901235")
 					.mercado(mercado1)
 					.build();
 			Fornecedor fornecedor3 = Fornecedor.builder()
 					.nome("Fornecedor 3")
-					.cnpj("12345678901234")
+					.cnpj("12345678901236")
 					.mercado(mercado1)
 					.build();
-			fornecedorRepository.saveAll(Arrays.asList(fornecedor1, fornecedor2, fornecedor3));
-			System.out.println("Fornecedores salvos com sucesso!");*/
+
+			Fornecedor fornecedor4 = Fornecedor.builder()
+					.nome("Fornecedor 4")
+					.cnpj("12345678901237")
+					.mercado(mercado1)
+					.build();
+			fornecedorRepository.saveAll(Arrays.asList(fornecedor1, fornecedor2, fornecedor3, fornecedor4));
+			System.out.println("Fornecedores salvos com sucesso!");
 
 			// Criando três categorias
 			Categoria alimentos = Categoria.builder()
@@ -94,7 +104,7 @@ public class MercadoApplication {
 
 			System.out.println("Categorias salvas com sucesso!");
 
-			/*Produto produto1 = Produto.builder()
+			Produto produto1 = Produto.builder()
 					.nome("Coca cola")
 					.preco(10.00)
 					.categoria(bebidas)
@@ -116,13 +126,13 @@ public class MercadoApplication {
 			Produto produto4 = Produto.builder()
 					.nome("candida")
 					.categoria(limpeza)
-					.fornecedor(fornecedor1)
+					.fornecedor(fornecedor4)
 					.preco(3000.0)
 					.build();
 
 
 			produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3, produto4));
-			System.out.println("Produtos salvos com sucesso!");*/
+			System.out.println("Produtos salvos com sucesso!");
 
 		};
 	}
