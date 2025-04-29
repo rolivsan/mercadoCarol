@@ -1,6 +1,7 @@
 package br.com.mercado.domain.usecase;
 
-import br.com.mercado.domain.dto.CategoriaDto;
+import br.com.mercado.domain.dto.request.CategoriaRequestDto;
+import br.com.mercado.domain.dto.response.CategoriaResponseDto;
 import br.com.mercado.domain.mapper.CategoriaMapper;
 import br.com.mercado.domain.model.Categoria;
 import br.com.mercado.domain.repository.CategoriaRepository;
@@ -19,18 +20,18 @@ public class CategoriaUseCase {
     @Autowired
     CategoriaRepository categoriaRepository;
 
-    public List<CategoriaDto> findAll() {
-        List<CategoriaDto> categoriasResponse = new ArrayList<>();
+    public List<CategoriaResponseDto> findAll() {
+        List<CategoriaResponseDto> categoriasResponse = new ArrayList<>();
 
         for(Categoria categoria : categoriaRepository.findAll()){
-            CategoriaDto cat = CategoriaMapper.toRespone(categoria);
+            CategoriaResponseDto cat = CategoriaMapper.toRespone(categoria);
             categoriasResponse.add(cat);
         }
 
         return categoriasResponse;
     }
 
-    public CategoriaDto findById(Long id) throws Exception {
+    public CategoriaResponseDto findById(Long id) throws Exception {
         Optional<Categoria> byId = categoriaRepository.findById(id);
 
         Categoria categoria = byId.orElseThrow(() -> {
@@ -38,8 +39,12 @@ public class CategoriaUseCase {
             return new Exception("Categoria nao encontrada");
         });
 
-
-
         return CategoriaMapper.toRespone(categoria);
+    }
+
+    public CategoriaResponseDto create(CategoriaRequestDto request) {
+        Categoria categoria = CategoriaMapper.toEntity(request);
+        Categoria categoriaSaved = categoriaRepository.save(categoria);
+        return CategoriaMapper.toRespone(categoriaSaved);
     }
 }
