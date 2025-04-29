@@ -1,5 +1,6 @@
 package br.com.mercado.domain.controller;
 
+import br.com.mercado.domain.dto.CategoriaDto;
 import br.com.mercado.domain.model.Categoria;
 import br.com.mercado.domain.model.Produto;
 import br.com.mercado.domain.service.CategoriaService;
@@ -20,12 +21,12 @@ public class CategoriaController {
     CategoriaService categoriaService;
 
     @GetMapping
-    public ResponseEntity<List<Categoria>> findAll(){
+    public ResponseEntity<List<CategoriaDto>> findAll(){
         return ResponseEntity.ok(categoriaService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Categoria> findById(@PathVariable Long id) throws Exception {
+    public ResponseEntity<CategoriaDto> findById(@PathVariable Long id) throws Exception {
         return ResponseEntity.ok(categoriaService.findById(id));
     }
 

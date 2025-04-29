@@ -1,5 +1,6 @@
 package br.com.mercado.domain.service;
 
+import br.com.mercado.domain.dto.CategoriaDto;
 import br.com.mercado.domain.model.Categoria;
 import br.com.mercado.domain.usecase.CategoriaUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,11 @@ public class CategoriaService {
     @Autowired
     CategoriaUseCase categoriaUseCase;
 
-    public List<Categoria> findAll() {
+    public List<CategoriaDto> findAll() {
         return categoriaUseCase.findAll();
     }
 
-    public Categoria findById(Long id) throws Exception {
+    public CategoriaDto findById(Long id) throws Exception {
         return categoriaUseCase.findById(id);
     }
 }
