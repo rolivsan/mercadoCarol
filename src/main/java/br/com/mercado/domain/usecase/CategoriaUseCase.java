@@ -60,4 +60,18 @@ public class CategoriaUseCase {
 
         log.info("categoria apagada com sucesso");
     }
+
+    public CategoriaResponseDto updateAll(Long id, CategoriaRequestDto request) throws Exception {
+        Optional<Categoria> byId = categoriaRepository.findById(id);
+
+        Categoria categoria = byId.orElseThrow(() -> {
+            log.error("categoria nao encontrada");
+            return new Exception("Categoria nao encontrada");
+        });
+
+        categoria.setNome(request.getNome());
+
+        Categoria categoriaSaved = categoriaRepository.save(categoria);
+        return CategoriaMapper.toRespone(categoriaSaved);
+    }
 }

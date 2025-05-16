@@ -37,5 +37,10 @@ public class CategoriaController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoriaResponseDto> updateAll(@PathVariable Long id, @RequestBody CategoriaRequestDto request) throws Exception {
+        return ResponseEntity.ok(categoriaService.updateAll(id, request));
+    }
+
 
 }
