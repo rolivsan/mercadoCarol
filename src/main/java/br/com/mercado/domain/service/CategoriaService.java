@@ -23,7 +23,7 @@ public class CategoriaService {
     }
 
     public CategoriaResponseDto create(CategoriaRequestDto request) {
-        return  categoriaUseCase.create(request);
+        return categoriaUseCase.create(request);
 
     }
 }
