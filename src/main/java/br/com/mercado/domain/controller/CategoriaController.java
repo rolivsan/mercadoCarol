@@ -31,6 +31,4 @@ public class CategoriaController {
         return  ResponseEntity.status(201).body(categoriaService.create(request));
     }
 
-
-
 }

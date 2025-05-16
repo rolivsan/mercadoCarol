@@ -56,7 +56,7 @@ public class MercadoApplication {
 					.mercado(mercado1) // Associa o mercado
 					.build();
 			funcionarioRepository.saveAll(Arrays.asList(funcionario1, funcionario2, funcionario3));
-			System.out.println("salvando funcionarios");
+			log.info("salvando funcionarios");
 
 			Fornecedor fornecedor1 = Fornecedor.builder()
 					.nome("Fornecedor 1")
@@ -80,7 +80,7 @@ public class MercadoApplication {
 					.mercado(mercado1)
 					.build();
 			fornecedorRepository.saveAll(Arrays.asList(fornecedor1, fornecedor2, fornecedor3, fornecedor4));
-			System.out.println("Fornecedores salvos com sucesso!");
+			log.info("Fornecedores salvos com sucesso!");
 
 			// Criando três categorias
 			Categoria alimentos = Categoria.builder()
@@ -102,7 +102,7 @@ public class MercadoApplication {
 			// Salvando as categorias no banco
 			categoriaRepository.saveAll(Arrays.asList(alimentos, bebidas, limpeza, tecnologia));
 
-			System.out.println("Categorias salvas com sucesso!");
+			log.info("Categorias salvas com sucesso!");
 
 			Produto produto1 = Produto.builder()
 					.nome("Coca cola")
@@ -132,7 +132,7 @@ public class MercadoApplication {
 
 
 			produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3, produto4));
-			System.out.println("Produtos salvos com sucesso!");
+			log.info("Produtos salvos com sucesso!");
 
 		};
 	}
