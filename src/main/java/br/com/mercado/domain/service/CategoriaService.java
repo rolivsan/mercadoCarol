@@ -26,4 +26,8 @@ public class CategoriaService {
         return categoriaUseCase.create(request);
 
     }
+
+    public void delete(Long id) throws Exception {
+        categoriaUseCase.delete(id);
+    }
 }

@@ -47,4 +47,17 @@ public class CategoriaUseCase {
         Categoria categoriaSaved = categoriaRepository.save(categoria);
         return CategoriaMapper.toRespone(categoriaSaved);
     }
+
+    public void delete(Long id) throws Exception {
+        Optional<Categoria> byId = categoriaRepository.findById(id);
+
+        Categoria categoria = byId.orElseThrow(() -> {
+            log.error("categoria nao encontrada");
+            return new Exception("Categoria nao encontrada");
+        });
+
+        categoriaRepository.delete(categoria);
+
+        log.info("categoria apagada com sucesso");
+    }
 }
