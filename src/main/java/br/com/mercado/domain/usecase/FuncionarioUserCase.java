@@ -51,5 +51,33 @@ public class FuncionarioUserCase {
         Funcionario funcionario = FuncionarioMapper.toEntity(request);
         Funcionario funcionarioSaved = funcionarioRepository.save(funcionario);
         return FuncionarioMapper.toRespone(funcionarioSaved);
+
+    }
+
+    public void delete(Long id) throws Exception {
+        Optional<Funcionario> byId = funcionarioRepository.findById(id);
+
+        Funcionario funcionario = byId.orElseThrow(() -> {
+            log.error("Funcionario nao encontrado");
+            return new Exception("Funcionario nao encontrado");
+        });
+
+        funcionarioRepository.delete(funcionario);
+
+        log.info("Funcionario apagado com sucesso");
+    }
+
+    public FuncionarioResponseDto updateAll(Long id, FuncionarioRequestDto request) throws Exception {
+        Optional<Funcionario> byId = funcionarioRepository.findById(id);
+
+        Funcionario funcionario = byId.orElseThrow(() -> {
+            log.error("Funcionario nao encontrado");
+            return new Exception("Funcionario nao encontrado");
+        });
+
+        funcionario.setNome(request.getNome());
+
+        Funcionario funcionarioSaved = funcionarioRepository.save(funcionario);
+        return FuncionarioMapper.toRespone(funcionarioSaved);
     }
 }

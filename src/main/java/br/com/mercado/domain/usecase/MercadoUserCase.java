@@ -27,7 +27,7 @@ public class MercadoUserCase {
     public List<MercadoResponseDto> findAll() {
         List<MercadoResponseDto> mercadoResponse = new ArrayList<>();
 
-        for( Mercado mercado : mercadoRepository.findAll()){
+        for (Mercado mercado : mercadoRepository.findAll()) {
             MercadoResponseDto cat = MercadoMapper.toRespone(mercado);
             mercadoResponse.add(cat);
         }
@@ -48,6 +48,33 @@ public class MercadoUserCase {
 
     public MercadoResponseDto create(MercadoRequestDto request) {
         Mercado mercado = MercadoMapper.toEntity(request);
+        Mercado mercadoSaved = mercadoRepository.save(mercado);
+        return MercadoMapper.toRespone(mercadoSaved);
+    }
+
+    public void delete(Long id) throws Exception {
+        Optional<Mercado> byId = mercadoRepository.findById(id);
+
+        Mercado mercado = byId.orElseThrow(() -> {
+            log.error("Mercado nao encontrado");
+            return new Exception("Mercado nao encontrado");
+        });
+
+        mercadoRepository.delete(mercado);
+
+        log.info("Mercado apagado com sucesso");
+    }
+
+    public MercadoResponseDto updateAll(Long id, MercadoRequestDto request) throws Exception {
+        Optional<Mercado> byId = mercadoRepository.findById(id);
+
+        Mercado mercado = byId.orElseThrow(() -> {
+            log.error("Mercado nao encontrado");
+            return new Exception("Mercado nao encontrado");
+        });
+
+        mercado.setNome(request.getNome());
+
         Mercado mercadoSaved = mercadoRepository.save(mercado);
         return MercadoMapper.toRespone(mercadoSaved);
     }

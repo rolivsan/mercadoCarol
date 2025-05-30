@@ -19,7 +19,7 @@ public class FuncionarioController {
     FuncionarioService funcionarioService;
 
     @GetMapping
-    public ResponseEntity<List<FuncionarioResponseDto>> findAll(){
+    public ResponseEntity<List<FuncionarioResponseDto>> findAll() {
         return ResponseEntity.ok(funcionarioService.findAll());
     }
 
@@ -29,7 +29,18 @@ public class FuncionarioController {
     }
 
     @PostMapping
-    public ResponseEntity<FuncionarioResponseDto> create(@RequestBody FuncionarioRequestDto request){
-        return  ResponseEntity.status(201).body(funcionarioService.create(request));
+    public ResponseEntity<FuncionarioResponseDto> create(@RequestBody FuncionarioRequestDto request) {
+        return ResponseEntity.status(201).body(funcionarioService.create(request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) throws Exception {
+        funcionarioService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FuncionarioResponseDto> updateAll(@PathVariable Long id, @RequestBody FuncionarioRequestDto request) throws Exception {
+        return ResponseEntity.ok(funcionarioService.updateAll(id, request));
     }
 }

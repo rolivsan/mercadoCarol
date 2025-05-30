@@ -31,4 +31,16 @@ public class CategoriaController {
         return  ResponseEntity.status(201).body(categoriaService.create(request));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) throws Exception {
+        categoriaService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoriaResponseDto> updateAll(@PathVariable Long id, @RequestBody CategoriaRequestDto request) throws Exception {
+        return ResponseEntity.ok(categoriaService.updateAll(id, request));
+    }
+
+
 }
