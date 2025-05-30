@@ -1,6 +1,8 @@
 package br.com.mercado.domain.service;
 
+import br.com.mercado.domain.dto.request.CategoriaRequestDto;
 import br.com.mercado.domain.dto.request.FuncionarioRequestDto;
+import br.com.mercado.domain.dto.response.CategoriaResponseDto;
 import br.com.mercado.domain.dto.response.FuncionarioResponseDto;
 import br.com.mercado.domain.usecase.FuncionarioUserCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,15 @@ public class FuncionarioService {
     }
 
     public FuncionarioResponseDto create(FuncionarioRequestDto request) {
-        return  funcionarioUserCase.create(request);
+        return funcionarioUserCase.create(request);
 
+    }
+
+    public void delete(Long id) throws Exception {
+        funcionarioUserCase.delete(id);
+    }
+
+    public FuncionarioResponseDto updateAll(Long id, FuncionarioRequestDto request) throws Exception {
+        return funcionarioUserCase.updateAll(id, request);
     }
 }

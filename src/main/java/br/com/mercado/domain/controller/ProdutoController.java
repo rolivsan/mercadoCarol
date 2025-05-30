@@ -19,7 +19,7 @@ public class ProdutoController {
     ProdutoService produtoService;
 
     @GetMapping
-    public ResponseEntity<List<ProdutoResponseDto>> findAll(){
+    public ResponseEntity<List<ProdutoResponseDto>> findAll() {
         return ResponseEntity.ok(produtoService.findAll());
     }
 
@@ -29,8 +29,19 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<ProdutoResponseDto> create(@RequestBody ProdutoRequestDto request){
-        return  ResponseEntity.status(201).body(produtoService.create(request));
+    public ResponseEntity<ProdutoResponseDto> create(@RequestBody ProdutoRequestDto request) {
+        return ResponseEntity.status(201).body(produtoService.create(request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) throws Exception {
+        produtoService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProdutoResponseDto> updateAll(@PathVariable Long id, @RequestBody ProdutoRequestDto request) throws Exception {
+        return ResponseEntity.ok(produtoService.updateAll(id, request));
     }
 
 }

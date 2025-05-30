@@ -1,6 +1,8 @@
 package br.com.mercado.domain.service;
 
+import br.com.mercado.domain.dto.request.CategoriaRequestDto;
 import br.com.mercado.domain.dto.request.ProdutoRequestDto;
+import br.com.mercado.domain.dto.response.CategoriaResponseDto;
 import br.com.mercado.domain.dto.response.ProdutoResponseDto;
 import br.com.mercado.domain.usecase.ProdutoUserCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,15 @@ public class ProdutoService {
     }
 
     public ProdutoResponseDto create(ProdutoRequestDto request) {
-        return  produtoUserCase.create(request);
+        return produtoUserCase.create(request);
 
+    }
+
+    public void delete(Long id) throws Exception {
+        produtoUserCase.delete(id);
+    }
+
+    public ProdutoResponseDto updateAll(Long id, ProdutoRequestDto request) throws Exception {
+        return produtoUserCase.updateAll(id, request);
     }
 }

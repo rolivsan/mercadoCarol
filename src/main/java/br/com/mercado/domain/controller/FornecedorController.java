@@ -2,6 +2,7 @@ package br.com.mercado.domain.controller;
 
 import br.com.mercado.domain.dto.request.CategoriaRequestDto;
 import br.com.mercado.domain.dto.request.FornecedorRequestDto;
+import br.com.mercado.domain.dto.request.FuncionarioRequestDto;
 import br.com.mercado.domain.dto.response.CategoriaResponseDto;
 import br.com.mercado.domain.dto.response.FornecedorResponseDto;
 import br.com.mercado.domain.service.FornecedoresService;
@@ -19,7 +20,7 @@ public class FornecedorController {
     FornecedoresService fornecedoresService;
 
     @GetMapping
-    public ResponseEntity<List<FornecedorResponseDto>> findAll(){
+    public ResponseEntity<List<FornecedorResponseDto>> findAll() {
         return ResponseEntity.ok(fornecedoresService.findAll());
     }
 
@@ -29,7 +30,18 @@ public class FornecedorController {
     }
 
     @PostMapping
-    public ResponseEntity<FornecedorResponseDto> create(@RequestBody FornecedorRequestDto request){
-        return  ResponseEntity.status(201).body(fornecedoresService.create(request));
+    public ResponseEntity<FornecedorResponseDto> create(@RequestBody FornecedorRequestDto request) {
+        return ResponseEntity.status(201).body(fornecedoresService.create(request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) throws Exception {
+        fornecedoresService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FornecedorResponseDto> updateAll(@PathVariable Long id, @RequestBody FornecedorRequestDto request) throws Exception {
+        return ResponseEntity.ok(fornecedoresService.updateAll(id, request));
     }
 }

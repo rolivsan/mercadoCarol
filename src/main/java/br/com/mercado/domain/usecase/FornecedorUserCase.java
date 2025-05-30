@@ -28,7 +28,7 @@ public class FornecedorUserCase {
     public List<FornecedorResponseDto> findAll() {
         List<FornecedorResponseDto> fornecedorResponse = new ArrayList<>();
 
-        for(Fornecedor fornecedor : fornecedorRepository.findAll()){
+        for (Fornecedor fornecedor : fornecedorRepository.findAll()) {
             FornecedorResponseDto forne = FornecedorMapper.toRespone(fornecedor);
             fornecedorResponse.add(forne);
         }
@@ -49,6 +49,33 @@ public class FornecedorUserCase {
 
     public FornecedorResponseDto create(FornecedorRequestDto request) {
         Fornecedor fornecedor = FornecedorMapper.toEntity(request);
+        Fornecedor fornecedorSaved = fornecedorRepository.save(fornecedor);
+        return FornecedorMapper.toRespone(fornecedorSaved);
+    }
+
+    public void delete(Long id) throws Exception {
+        Optional<Fornecedor> byId = fornecedorRepository.findById(id);
+
+        Fornecedor fornecedor = byId.orElseThrow(() -> {
+            log.error("Fornecedor nao encontrada");
+            return new Exception("Fornecedor nao encontrada");
+        });
+
+        fornecedorRepository.delete(fornecedor);
+
+        log.info("Fornecedor apagada com sucesso");
+    }
+
+    public FornecedorResponseDto updateAll(Long id, FornecedorRequestDto request) throws Exception {
+        Optional<Fornecedor> byId = fornecedorRepository.findById(id);
+
+        Fornecedor fornecedor = byId.orElseThrow(() -> {
+            log.error("Fornecedor nao encontrada");
+            return new Exception("Fornecedor nao encontrada");
+        });
+
+        fornecedor.setNome(request.getNome());
+
         Fornecedor fornecedorSaved = fornecedorRepository.save(fornecedor);
         return FornecedorMapper.toRespone(fornecedorSaved);
     }

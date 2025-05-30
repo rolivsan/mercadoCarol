@@ -29,7 +29,7 @@ public class ProdutoUserCase {
     public List<ProdutoResponseDto> findAll() {
         List<ProdutoResponseDto> produtoResponse = new ArrayList<>();
 
-        for(Produto produto : produtoRepository.findAll()){
+        for (Produto produto : produtoRepository.findAll()) {
             ProdutoResponseDto prod = ProdutoMapper.toRespone(produto);
             produtoResponse.add(prod);
         }
@@ -52,5 +52,32 @@ public class ProdutoUserCase {
         Produto produto = ProdutoMapper.toEntity(request);
         Produto produtoSaved = produtoRepository.save(produto);
         return ProdutoMapper.toRespone(produtoSaved);
+    }
+
+    public void delete(Long id) throws Exception {
+        Optional<Produto> byId = produtoRepository.findById(id);
+
+        Produto produto = byId.orElseThrow(() -> {
+            log.error("Produto nao encontrado");
+            return new Exception("Produto nao encontrado");
+        });
+
+        produtoRepository.delete(produto);
+
+        log.info("Produto apagado com sucesso");
+    }
+
+    public ProdutoResponseDto updateAll(Long id, ProdutoRequestDto request) throws Exception {
+        Optional<Produto> byId = produtoRepository.findById(id);
+
+        Produto produto = byId.orElseThrow(() -> {
+            log.error("Produto nao encontrado");
+            return new Exception("Produto nao encontrado");
+        });
+
+        produto.setNome(request.getNome());
+
+        Produto produtosaved = produtoRepository.save(produto);
+        return ProdutoMapper.toRespone(produtosaved);
     }
 }

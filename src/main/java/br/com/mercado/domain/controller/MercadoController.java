@@ -19,7 +19,7 @@ public class MercadoController {
     MercadoService mercadoService;
 
     @GetMapping
-    public ResponseEntity<List<MercadoResponseDto>> findAll(){
+    public ResponseEntity<List<MercadoResponseDto>> findAll() {
         return ResponseEntity.ok(mercadoService.findAll());
     }
 
@@ -29,7 +29,18 @@ public class MercadoController {
     }
 
     @PostMapping
-    public ResponseEntity<MercadoResponseDto> create(@RequestBody MercadoRequestDto request){
-        return  ResponseEntity.status(201).body(mercadoService.create(request));
+    public ResponseEntity<MercadoResponseDto> create(@RequestBody MercadoRequestDto request) {
+        return ResponseEntity.status(201).body(mercadoService.create(request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) throws Exception {
+        mercadoService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MercadoResponseDto> updateAll(@PathVariable Long id, @RequestBody MercadoRequestDto request) throws Exception {
+        return ResponseEntity.ok(mercadoService.updateAll(id, request));
     }
 }
